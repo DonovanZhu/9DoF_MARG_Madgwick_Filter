@@ -1,6 +1,6 @@
 % read magnetometer data from Processing Sketch directory
 % Input the path of csv file produced by Collect_Data.py
-M = readmatrix('D:/SoftRobot Simulation/Mag_Calibration/magnetometer.csv');
+M = readmatrix('D:/Magnetometer_Calibration/magnetometer.csv');
 x = M(:,1);
 y = M(:,2);
 z = M(:,3);
