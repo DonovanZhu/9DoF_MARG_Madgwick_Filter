@@ -10,4 +10,4 @@ Connection between Teensy and MPU9255 is as follows.
  SCL       <--> SCL
  SDA       <--> SDA
 ```
-![alt text](https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg=250x)
+![alt text](https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg =250x)
