@@ -15,5 +15,6 @@ Connection between Teensy and MPU9250 is as follows. Teensy connects PC through 
 ```
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg" width="350">
 ## Setting up the software
+
 ### Calibration
 MPU9250 is a 9 DoF MARG. Accelerometer, gyroscope and magnetometer are impelemented on MPU9250 to sense accleration, rotation speed and magnetic field along the three axises of the coordinate on itself. To successfully estimate the eular angle, calibration of all 9 data is required.
