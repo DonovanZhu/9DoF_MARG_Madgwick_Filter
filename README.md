@@ -14,4 +14,4 @@ Connection between Teensy and MPU9255 is as follows. Teensy connects PC through 
  SCL       <--> SCL
  SDA       <--> SDA
 ```
-<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg" width="300">
+<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg" width="350">
