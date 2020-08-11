@@ -7,7 +7,8 @@ To view the performance, please click [here](https://youtu.be/iOwcov_5z3c).
 ## Electrical components
 Connection between Teensy and MPU9255 is as follows. Teensy connects PC through USB port.
 ```
- **TEENSY4.0** <--> **MPU9255**
+ TEENSY4.0 <--> MPU9255
+ 
  3.3V      <--> VCC
  GND       <--> GND
  SCL       <--> SCL
