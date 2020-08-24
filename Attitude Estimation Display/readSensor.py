@@ -48,7 +48,7 @@ class SerialRead:
     def backgroundThread(self):  # retrieve data
         time.sleep(1.0)  # give some buffer time for retrieving data
         self.serialConnection.reset_input_buffer()
-        while (self.isRun):
+        while self.isRun:
             self.serialConnection.readinto(self.rawData)
             self.isReceiving = True
             # print(self.rawData)
