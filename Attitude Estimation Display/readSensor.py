@@ -34,7 +34,7 @@ class SerialRead:
             self.thread = Thread(target=self.backgroundThread)
             self.thread.start()
             # Block till we start receiving values
-            while self.isReceiving != True:
+            while not self.isReceiving:
                 time.sleep(0.1)
 
     def getSerialData(self):
