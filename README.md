@@ -11,7 +11,7 @@ MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9
 
 ## Hardware Description
 
-To set a simple attitude estimation system, only to unit is needed: a microcontroller and a 9 DoF MARG. In this project, Teensy4.0 is used as microcontroller to receive and process data from MARG.
+To set a simple attitude estimation system, only two units are needed: a microcontroller and a 9 DoF MARG. In this project, Teensy4.0 is used as microcontroller to receive and process data from MARG.
 
 ### Setting up the hardware
 Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as follows. Teensy connects PC through micro-USB port to transfer data.
