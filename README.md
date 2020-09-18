@@ -32,6 +32,10 @@ MARG is powered by Teensy from its 3.3V and GND pins. The MARG used in this proj
 [Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system. It is compatible with Arduino Software & Libraries. To use it, Arduino software and Teensyduino package is required. The official installation instruction is [here](https://www.pjrc.com/teensy/td_download.html). Teensy is a powerful and small size microcontroller. It features an ARM Cortex-M7 processor at 600 MHz, with a NXP iMXRT1062 chip, one of the fastest microcontroller available today.
 
 ### MARG
+MARG(magnetic angular rate and gravity), also called 9 Degree of Freedom IMU, can sense 3 types data: acceleration, rotation speed and magnetic field. 9 Dof means it provides these 3 types data along X/Y/Z axis of IMU, which are 9 numbers. Different IMU has different coordinate. Producers always paint that on the board, or can be found on official datasheet.
+
+## Algorithm Description
+""Madgwick filter"" is a data fusion algorithm for alttitude estimation. To estimation the rotation angle along each axis of base coordinate, only use one type of data is not enough.
 
 ## Setting up the software
 
