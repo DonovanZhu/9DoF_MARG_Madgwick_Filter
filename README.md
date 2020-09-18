@@ -7,8 +7,10 @@ The MARG used in this project is [MPU9250](https://www.amazon.com/HiLetgo-Gyrosc
 is also supported since they use same library in Arduino. A [Teensy4.0](https://www.pjrc.com/teensy-4-0/) is used to receive and process the data from MARG, 
 then send results of attitude estimation as Euler angle to PC.
 
-**To view the performance, please click [here](https://youtu.be/iOwcov_5z3c).**
+**To view the performance, please click the following image.**
+
 [![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
+
 ## Setting up the hardware
 Connection between Teensy and MPU9250 is as follows. Teensy connects PC through USB port.
 ```
