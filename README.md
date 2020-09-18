@@ -7,13 +7,11 @@ MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9
 
 **To view the performance, please click the following image.**
 
-         [![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
+[![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
 
 ## Hardware Description
-### microcontroller
-[Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
 
-## Setting up the hardware
+### Setting up the hardware
 Connection between Teensy and MPU9250 is as follows. Teensy connects PC through USB port.
 ```
  TEENSY4.0 <--> MPU9250
@@ -24,6 +22,11 @@ Connection between Teensy and MPU9250 is as follows. Teensy connects PC through 
  SDA       <--> SDA
 ```
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg" width="350">
+
+### microcontroller
+[Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
+
+
 
 ## Setting up the software
 
