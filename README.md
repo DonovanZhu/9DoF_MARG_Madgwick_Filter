@@ -21,7 +21,7 @@ Connection between Teensy and MPU9250 is as follows. Teensy connects PC through 
  SCL       <--> SCL
  SDA       <--> SDA
 ```
-<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MARG_Connection.jpg" width="350">
+<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" width="350">
 
 ### microcontroller
 [Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
