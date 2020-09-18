@@ -11,10 +11,12 @@ MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9
 
 ## Hardware Description
 
+To set a simple attitude estimation system, only to unit is needed: a microcontroller and a 9 DoF MARG. In this project, Teensy4.0 is used as microcontroller to receive and process data from MARG.
+
 ### Setting up the hardware
-Connection between Teensy and MPU9250 is as follows. Teensy connects PC through USB port.
+Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as follows. Teensy connects PC through micro-USB port to transfer data.
 ```
- TEENSY4.0 <--> MPU9250
+ TEENSY4.0 <--> MARG
  
  3.3V      <--> VCC
  GND       <--> GND
@@ -22,6 +24,7 @@ Connection between Teensy and MPU9250 is as follows. Teensy connects PC through 
  SDA       <--> SDA
 ```
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" width="350">
+<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_Adafruit_Connection.jpg" width="350">
 
 ### microcontroller
 [Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
