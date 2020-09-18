@@ -23,8 +23,7 @@ Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as fo
  SCL       <--> SCL
  SDA       <--> SDA
 ```
-<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" width="350">
-<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_Adafruit_Connection.jpg" width="350">
+<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" width="350"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_Adafruit_Connection.jpg" width="350">
 
 ### microcontroller
 [Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
