@@ -1,4 +1,4 @@
-# 9 Degree of Freedom Madgwick Filter Attitude Estimation
+# 9 Degree of Freedom MARG Madgwick Filter Attitude Estimation
 
 ## Description
 This project implements attitude estimation by using [Madgwick filter](https://x-io.co.uk/open-source-imu-and-ahrs-algorithms/), which is a low computational cost and high accuracy data fusion algorithm, based on a 9 degree of freedom MARG(magnetic angular rate and gravity, i.e., IMU + magnetometer). In this project two type of MARG is used: [MPU9250](https://www.amazon.com/HiLetgo-Gyroscope-Acceleration-Accelerator-Magnetometer/dp/B01I1J0Z7Y/ref=sr_1_4?dchild=1&keywords=MPU9250&qid=1597109421&sr=8-4) and 
