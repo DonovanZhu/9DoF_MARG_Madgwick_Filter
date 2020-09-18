@@ -26,7 +26,7 @@ Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as fo
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" width="350"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_Adafruit_Connection.jpg" width="350">
 
 ### microcontroller
-[Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system
+[Teensy](https://www.pjrc.com/teensy/) is a complete USB-based microcontroller development system. It is compatible with Arduino Software & Libraries. To use it, Arduino software and Teensyduino package is required. The official installation instruction is [here](https://www.pjrc.com/teensy/td_download.html).
 
 
 
