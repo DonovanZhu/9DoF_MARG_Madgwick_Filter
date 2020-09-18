@@ -7,7 +7,7 @@ MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9
 
 **To view the performance, please click the following image.**
 
-[![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
+         [![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
 
 ## Hardware Description
 ### microcontroller
