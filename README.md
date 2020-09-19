@@ -72,7 +72,7 @@ The calibration of megnatometer is more complex. It also has some restriction. I
 
 To do that, open 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/MPU9250_Magnetometer/MPU9250_Magnetometer.ino, compile and upload it to Teensy. Then run 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Collect_Data.py. This python program will run for 120 seconds. It collects raw magnetic field data and saves it into a csv file. During this process, MPU9250 should be keep rotated randomly so that it can face to each direction at once. After 120 seconds(this duration can be edited in program), data is collected in to "magnetometer.csv" file. 
 
-Copy this file into 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Ellipsoid_Fit and run magnetometer_calibration.m (remember to change the read path in program). This program produces two images to show the result and two lists as shown below.
+Copy this file into 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Ellipsoid_Fit and run magnetometer_calibration.m (remember to change the read path in program). This program produces two images to show the result and two lists as shown below. Find this part in /9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madgwick.ino and replace it.
 
 ```
 const float magn_ellipsoid_center[3] = {-1.22362, -3.49591, -28.3068};
@@ -80,3 +80,5 @@ const float magn_ellipsoid_transform[3][3] = {{0.936683, -0.0120599, -0.00747369
 ```
 
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Least_squares_ellipsoid_specific_fitting.jpg" height="400"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Mag_Calibration.jpg" height="400">
+
+In the above figures, 
