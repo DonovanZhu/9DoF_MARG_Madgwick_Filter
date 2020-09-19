@@ -13,7 +13,7 @@ MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9
 
 To set a simple attitude estimation system, only two units are needed: a microcontroller and a 9 DoF MARG. In this project, Teensy4.0 is used as microcontroller to receive and process data from MARG.
 
-### Setting up the hardware
+### Setting up the Hardware
 Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as follows. Teensy connects PC through micro-USB port to transfer data.
 ```
  TEENSY4.0 <--> MARG
@@ -43,7 +43,7 @@ At present, many data fusion algorithms are able to estimate accurate attitude, 
 
 To understand Madgwick filter, It is highly recommanded to read the [orignal paper](https://x-io.co.uk/res/doc/madgwick_internal_report.pdf).
 
-## Setting up the software
+## Setting up the Software
 Take MPU9250 as example to explain how to set up software. Adafruit IMU setting up is similar.
 
 ### Calibration
@@ -79,6 +79,9 @@ const float magn_ellipsoid_center[3] = {-1.22362, -3.49591, -28.3068};
 const float magn_ellipsoid_transform[3][3] = {{0.936683, -0.0120599, -0.00747369}, {-0.0120599, 0.997691, -5.88781e-05}, {-0.00747369, -5.88781e-05, 0.846255}};
 ```
 
-<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Least_squares_ellipsoid_specific_fitting.jpg" height="400"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Mag_Calibration.jpg" height="400">
+<img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Least_squares_ellipsoid_specific_fitting.jpg" height="350"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Mag_Calibration.jpg" height="350">
 
-In the above figures, 
+In the above figures, red pints are raw data and bule points are calibrated data.
+
+### Running Madgwick Filter and Display
+
