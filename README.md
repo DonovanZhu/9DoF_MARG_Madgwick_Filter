@@ -44,6 +44,38 @@ At present, many data fusion algorithms are able to estimate accurate attitude, 
 To understand Madgwick filter, It is highly recommanded to read the [orignal paper](https://x-io.co.uk/res/doc/madgwick_internal_report.pdf).
 
 ## Setting up the software
+Take MPU9250 as example to explain how to set up software. Adafruit IMU setting up is similar.
 
 ### Calibration
 MPU9250 is a 9 DoF MARG. Accelerometer, gyroscope and magnetometer are impelemented on MPU9250 to sense accleration, rotation speed and magnetic field along the three axises of the coordinate on itself. To successfully estimate the eular angle, calibration of all 9 data is required.
+
+1. Calibrate accelerometer and gyroscope
+
+When MARG is still on a flat stable, ideally, acceleration along x/y/z axis should be 0.0/0.0/-g (g is the gravity of that area) and rotation speed should be 0.0/0.0/0.0. However, in practice, these data not only has bias but also keep fluctuating. By using calibration, bias can be reduced. 
+
+The basic idea of calibrating accelerometer and gyroscope is putting MARG on a flat table, then open file 9DoF_MARG_Madgwick_Filter/MPU9250/Accelerometer & Gyroscope Calibration/MPU9250_Acc_Gyro_Calibration.ino, compile and upload it to Teensy. Then open serial monitor by clicking the icon on upper-right corner of the Arduino software window. After that, keep receiving acceleration and rotation speed data for around 20 seconds. Then, taking average of each data, we can get the calibration number.
+
+```
+#define GYRO_X_OFFSET 0.0000820
+#define GYRO_Y_OFFSET -0.0002375
+#define GYRO_Z_OFFSET -0.0000904
+
+#define ACCEL_X_OFFSET 0.1405817
+#define ACCEL_Y_OFFSET -0.1235667
+#define ACCEL_Z_OFFSET -10.2402658
+```
+Open file /9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madgwick.ino. Find this part and replace the number.
+
+2. Calibrate megnatometer
+
+The calibration of megnatometer is more complex. It also has some restriction. If IMU works in a certain workspace, then magnetometer calibration is required to be performed in that place. The reason is that, ideally, we only want to receive geomagnetic field. But geomagnetic field is easily influenced by Ferromagnetic material, like iron or nickel. This is so called soft-iron distortion. Also, some cable with current or magnet produce magnetic filed, which also influence the geomagnetic field we want. This is hard-iron distortion. The reason of calibration is to remove the soft-iron and hard-iron distortion. However, if the working place is changed, the distortion changes as well. Then the calibration can not compensate the distortion.
+
+To do that, open 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/MPU9250_Magnetometer/MPU9250_Magnetometer.ino, compile and upload it to Teensy. Then run 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Collect_Data.py. This python program will run for 120 seconds. It collects raw magnetic field data and saves it into a csv file. During this process, MPU9250 should be keep rotated randomly so that it can face to each direction at once. After 120 seconds(this duration can be edited in program), data is collected in to "magnetometer.csv" file. 
+
+Copy this file into 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Ellipsoid_Fit and run magnetometer_calibration.m (remember to change the read path in program). This program produces two images to show the result and two lists as shown below.
+
+```
+const float magn_ellipsoid_center[3] = {-1.22362, -3.49591, -28.3068};
+const float magn_ellipsoid_transform[3][3] = {{0.936683, -0.0120599, -0.00747369}, {-0.0120599, 0.997691, -5.88781e-05}, {-0.00747369, -5.88781e-05, 0.846255}};
+```
+
