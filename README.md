@@ -35,7 +35,13 @@ MARG is powered by Teensy from its 3.3V and GND pins. The MARG used in this proj
 MARG(magnetic angular rate and gravity), also called 9 Degree of Freedom IMU, can sense 3 types data: acceleration, rotation speed and magnetic field. 9 Dof means it provides these 3 types data along X/Y/Z axis of IMU, which are 9 numbers. Different IMU has different coordinate. Producers always paint that on the board, or can be found on official datasheet.
 
 ## Algorithm Description
-""Madgwick filter"" is a data fusion algorithm for alttitude estimation. To estimation the rotation angle along each axis of base coordinate, only use one type of data is not enough.
+Madgwick filter is a data fusion algorithm for alttitude estimation. To estimation the rotation angle along each axis of base coordinate, only use one type of data is not enough. For example, a simple way to calculate rotation angle is doing intergration of rotation speed provided by the gyroscope in IMU. However, the raw data is not stable, and the worst is the bias. When doing integration, bias will also be included in integration result. As a result, the rotation angle will keep rotating even the user does not touch it. This phenomenon is so called "drift".
+
+Data fusion algorithm is a good way to hangle drift and improving the estimation accuracy. It fuse all the data from IMU, each data provides useful information of IMU, and reduce the error produced by other type of data. 
+
+At present, many data fusion algorithms are able to estimate accurate attitude, e.g. [Mahony filter](https://ieeexplore.ieee.org/document/4608934), [Extanded Kalmen filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter) and Madgwick filter. In these algorithm, EFK provides high accuracy, but it consumes a lot computing power. Madgwick filter is accurate enough for most useage and it needs less computing resources.
+
+To understand Madgwick filter, It is highly recommanded to read the [orignal paper](https://x-io.co.uk/res/doc/madgwick_internal_report.pdf).
 
 ## Setting up the software
 
