@@ -84,4 +84,24 @@ const float magn_ellipsoid_transform[3][3] = {{0.936683, -0.0120599, -0.00747369
 In the above figures, red pints are raw data and bule points are calibrated data.
 
 ### Running Madgwick Filter and Display
+After calibration, it is time to run the filter and display the performance. Compile MPU9250_Madgwick.ino and upload it. Then running BoardDisplay.py in /9DoF_MARG_Madgwick_Filter/MPU9250/Attitude Estimation Display folder.
 
+## notifacation
+
+### MARG Position
+Keep MARG away from large current unit as far as possible, including cables and motors. The current in these units is changing so that the magnetic filed produced by them is also unstable. These unstable magnetic filed cannot be calibrated.
+
+### Madgwick Algorithm Parameter Tuning
+In 9DoF_MARG_Madgwick_Filter/MPU9250/src/MadgwickAHRS.cpp file, there is a parameter "beta" in function MadgwickQuaternionUpdate(). This parameter is explained in the original paper in detail. Generally, it is the step of regression. If beta increase, attitude estimation performs faster but more oscillation comes out. When beta is small, regression slows down but the data is more stable.
+
+### Frequency of Filter
+Accroding to MPU9250_Madgwick.ino file, sensor and filter work in same loop. They both run once in each loop, that is, sensor sends new data to filter then filter processes it. However, they are not in same frequency. For a MARG, the frequency of sending data and update data is different. In our program, the sending data frequency can be up to 3000Hz while data update rate is only 50 Hz. That means in most loop, the data sent from sensor is same. A faster sending rate is positive for the filter. Since the core of Madgwick filter is a regression algorithm, sending same data is helpful for the estimated data regresses to wanted result.
+
+## Reference
+[1] [MPU9250 Arduino Library](https://github.com/bolderflight/MPU9250)
+[2] [Adafruit LSM6DS Library](https://github.com/adafruit/Adafruit_LSM6DS) 
+[3] [Adafruit LIS3MDL Library](https://github.com/adafruit/Adafruit_LIS3MDL)
+[4] [9 Degree of Measurement Attitude and Heading Reference System for Sparkfun 9DOF Razor IMU and SparkFun 9DOF Sensor Stick](https://github.com/Razor-AHRS/razor-9dof-ahrs)
+[5] [Madgwick Filter](https://x-io.co.uk/open-source-imu-and-ahrs-algorithms/)
+[6] [Extented Kalmen Filter Attitude Determination](https://www.thepoorengineer.com/en/attitude-determination/)
+[7] [IMU Data Fusing: Complementary, Kalman, and Mahony Filter](http://www.olliw.eu/2013/imu-data-fusing/#refSM2)
