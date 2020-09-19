@@ -99,9 +99,15 @@ Accroding to MPU9250_Madgwick.ino file, sensor and filter work in same loop. The
 
 ## Reference
 [1] [MPU9250 Arduino Library](https://github.com/bolderflight/MPU9250)
+
 [2] [Adafruit LSM6DS Library](https://github.com/adafruit/Adafruit_LSM6DS) 
+
 [3] [Adafruit LIS3MDL Library](https://github.com/adafruit/Adafruit_LIS3MDL)
+
 [4] [9 Degree of Measurement Attitude and Heading Reference System for Sparkfun 9DOF Razor IMU and SparkFun 9DOF Sensor Stick](https://github.com/Razor-AHRS/razor-9dof-ahrs)
+
 [5] [Madgwick Filter](https://x-io.co.uk/open-source-imu-and-ahrs-algorithms/)
+
 [6] [Extented Kalmen Filter Attitude Determination](https://www.thepoorengineer.com/en/attitude-determination/)
+
 [7] [IMU Data Fusing: Complementary, Kalman, and Mahony Filter](http://www.olliw.eu/2013/imu-data-fusing/#refSM2)
