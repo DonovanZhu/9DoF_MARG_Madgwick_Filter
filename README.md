@@ -24,7 +24,7 @@ Connection between Teensy4.0 and MPU9250 or Adafruit LSM6DSOX + LIS3MDL is as fo
  SDA       <--> SDA
 ```
 
-MARG is powered by Teensy from its 3.3V and GND pins. The MARG used in this project uses I2C interface to send data. I2C is a stable and relatively high speed interface with only 2 wire. To check the pins of Teensy4.0, a pinout diagram can be found on [offical website](https://www.pjrc.com/store/teensy40.html).
+MARG is powered by Teensy from its 3.3V and GND pins. The MARG used in this project uses I2C interface to send data. I2C is a stable and relatively high-speed interface with only 2 wire. To check the pins of Teensy4.0, a pinout diagram can be found on [offical website](https://www.pjrc.com/store/teensy40.html).
 
 <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_MPU9250_Connection.jpg" height="500"> <img src="https://github.com/DonovanZhu/MPU9250_Madgwick_Filter/blob/master/Teensy_Adafruit_Connection.jpg" height="500">
 
