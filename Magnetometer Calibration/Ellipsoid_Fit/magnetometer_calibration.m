@@ -20,8 +20,7 @@ S = comp * S; % do compensation
 
 % output info
 fprintf('In the Razor_AHRS.ino, under "SENSOR CALIBRATION" find the section that reads "Magnetometer (extended calibration)"\n');
-fprintf('Replace the existing 3 lines with these:\n\n');
-fprintf('#define CALIBRATION__MAGN_USE_EXTENDED true\n');
+fprintf('Replace the existing 2 lines with these:\n\n');
 fprintf('const float magn_ellipsoid_center[3] = {%.6g, %.6g, %.6g};\n', e_center);
 fprintf('const float magn_ellipsoid_transform[3][3] = {{%.6g, %.6g, %.6g}, {%.6g, %.6g, %.6g}, {%.6g, %.6g, %.6g}};\n', comp);
 
