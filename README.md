@@ -64,15 +64,15 @@ The basic idea of calibrating accelerometer and gyroscope is putting MARG on a f
 #define ACCEL_Y_OFFSET -0.1235667
 #define ACCEL_Z_OFFSET -10.2402658
 ```
-Open file /9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madgwick.ino. Find this part and replace the number.
+Open file 9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madwick_Filter/MPU9250_Madgwick.ino. Find this part and replace the number.
 
 2. Calibrate magnetometer
 
 The calibration of magnetometer is more complex. It also has some restriction. If IMU works in a certain workspace, then magnetometer calibration is required to be performed in that place. The reason is that, ideally, we only want to receive geomagnetic field. But geomagnetic field is easily influenced by Ferromagnetic material, like iron or nickel. This is so called soft-iron distortion. Also, some cable with current or magnet produce magnetic field, which also influence the geomagnetic field we want. This is hard-iron distortion. The reason of calibration is to remove the soft-iron and hard-iron distortion. However, if the working place is changed, the distortion changes as well. Then the calibration cannot compensate the distortion.
 
-To do that, open 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/MPU9250_Magnetometer/MPU9250_Magnetometer.ino, compile and upload it to Teensy. Then run 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Collect_Data.py. This python program will run for 120 seconds. It collects raw magnetic field data and saves it into a csv file. During this process, MPU9250 should be keep rotated randomly so that it can face to each direction at once. After 120 seconds (this duration can be edited in program), data is collected in to "magnetometer.csv" file. 
+To do that, open 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/MPU9250_Magnetometer.ino, compile and upload it to Teensy. Then run 9DoF_MARG_Madgwick_Filter/Magnetometer Calibration/Collect_Data.py . This python program will run for 120 seconds. It collects raw magnetic field data and saves it into a csv file. During this process, MPU9250 should be keep rotated randomly so that it can face to each direction at once. After 120 seconds (this duration can be edited in program), data is collected in to "magnetometer.csv" file. 
 
-Copy this file into 9DoF_MARG_Madgwick_Filter/MPU9250/Magnetometer Calibration/Ellipsoid_Fit and run magnetometer_calibration.m (remember to change the read path in program). This program produces two images to show the result and two lists as shown below. Find this part in /9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madgwick.ino and replace it.
+Copy this file into 9DoF_MARG_Madgwick_Filter/Magnetometer Calibration/Ellipsoid_Fit and run magnetometer_calibration.m (remember to change the read path in program). This program produces two images to show the result and two lists as shown below. Find this part in 9DoF_MARG_Madgwick_Filter/MPU9250/MPU9250_Madwick_Filter/MPU9250_Madgwick.ino and replace it.
 
 ```
 const float magn_ellipsoid_center[3] = {-1.22362, -3.49591, -28.3068};
@@ -84,7 +84,7 @@ const float magn_ellipsoid_transform[3][3] = {{0.936683, -0.0120599, -0.00747369
 In the above figures, red pints are raw data and bule points are calibrated data.
 
 ### Running Madgwick Filter and Display
-After calibration, it is time to run the filter and display the performance. Compile MPU9250_Madgwick.ino and upload it. Then running BoardDisplay.py in /9DoF_MARG_Madgwick_Filter/MPU9250/Attitude Estimation Display folder.
+After calibration, it is time to run the filter and display the performance. Compile MPU9250_Madgwick.ino and upload it. Then running BoardDisplay.py in 9DoF_MARG_Madgwick_Filter/Attitude Estimation Display Estimation Display folder.
 
 ## Notification
 
@@ -92,7 +92,7 @@ After calibration, it is time to run the filter and display the performance. Com
 Keep MARG away from large current unit as far as possible, including cables and motors. The current in these units is changing so that the magnetic field produced by them is also unstable. These unstable magnetic field cannot be calibrated.
 
 ### Madgwick Algorithm Parameter Tuning
-In 9DoF_MARG_Madgwick_Filter/MPU9250/src/MadgwickAHRS.cpp file, there is a parameter "beta" in function MadgwickQuaternionUpdate(). This parameter is explained in the original paper in detail. Generally, it is the step of regression. If beta increase, attitude estimation performs faster but more oscillation comes out. When beta is small, regression slows down but the data is more stable.
+In MadgwickAHRS.cpp file, there is a parameter "beta" in function MadgwickQuaternionUpdate(). This parameter is explained in the original paper in detail. Generally, it is the step of regression. If beta increase, attitude estimation performs faster but more oscillation comes out. When beta is small, regression slows down but the data is more stable.
 
 ### Frequency of Filter
 According to MPU9250_Madgwick.ino file, sensor and filter work in same loop. They both run once in each loop, that is, sensor sends new data to filter then filter processes it. However, they are not in same frequency. For a MARG, the frequency of sending data and update data is different. In our program, the sending data frequency can be up to 3000Hz while data update rate is only 50 Hz. That means in most loop, the data sent from sensor is same. A faster sending rate is positive for the filter. Since the core of Madgwick filter is a regression algorithm, sending same data is helpful for the estimated data regresses to wanted result.
