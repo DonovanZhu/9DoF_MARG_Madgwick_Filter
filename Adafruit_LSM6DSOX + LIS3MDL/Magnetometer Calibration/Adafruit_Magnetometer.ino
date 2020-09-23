@@ -1,68 +1,55 @@
-#include <Adafruit_LSM6DSOX.h>
+#include <Adafruit_LIS3MDL.h>
 #include <Wire.h>
 
+Adafruit_LIS3MDL lis;
+sensors_event_t mage;
 
-Adafruit_LSM6DS sox;
-
-sensors_event_t accel;
-sensors_event_t gyro;
-sensors_event_t temp;
-
-double acc[3] = {0.0, 0.0, 0.0};
-double gyr[3] = {0.0, 0.0, 0.0};
-
-double acc_cal[3] = {0.0, 0.0, 0.0};
-double gyro_cal[3] = {0.0, 0.0, 0.0};
-
-int sample_times = 1;
+float mag[3];
 
 void read_sensors() {
-  sox.getEvent(&accel, &gyro, &temp);
-
-  acc[0] = accel.acceleration.x;
-  acc[1] = accel.acceleration.y;
-  acc[2] = accel.acceleration.z;
-  
-  gyr[0] = gyro.gyro.x;
-  gyr[1] = gyro.gyro.y;
-  gyr[2] = gyro.gyro.z;
+  lis.getEvent(&mage);
+  mag[0] = mage.magnetic.x;
+  mag[1] = mage.magnetic.y;
+  mag[2] = mage.magnetic.z;
 }
 
+
+void sendToPC(float* data1, float* data2, float* data3)
+{
+  byte* byteData1 = (byte*)(data1);
+  byte* byteData2 = (byte*)(data2);
+  byte* byteData3 = (byte*)(data3);
+  byte buf[12] = {byteData1[0], byteData1[1], byteData1[2], byteData1[3],
+                 byteData2[0], byteData2[1], byteData2[2], byteData2[3],
+                 byteData3[0], byteData3[1], byteData3[2], byteData3[3]};
+  Serial.write(buf, 12);
+}
 
 void setup() {
   Serial.begin(1000000);
   while (!Serial) yield();
-  Wire.begin();
+  //Wire.begin();
   Wire.setClock(4000000);
-  sox.begin_I2C();
 
-  sox.setAccelRange(LSM6DS_ACCEL_RANGE_4_G);
+  lis.begin_I2C();          // hardware I2C mode, can pass in address & alt Wire
 
-  sox.setGyroRange(LSM6DS_GYRO_RANGE_500_DPS );
+  lis.setPerformanceMode(LIS3MDL_ULTRAHIGHMODE);
 
-  sox.setAccelDataRate(LSM6DS_RATE_52_HZ);
+  lis.setOperationMode(LIS3MDL_CONTINUOUSMODE);
 
-  sox.setGyroDataRate(LSM6DS_RATE_52_HZ);
+  lis.setDataRate(LIS3MDL_DATARATE_40_HZ);
 
+  lis.setRange(LIS3MDL_RANGE_4_GAUSS);
+
+  lis.setIntThreshold(500);
+  lis.configInterrupt(false, false, true, // enable z axis
+                      true, // polarity
+                      false, // don't latch
+                      true); // enabled!
 }
 
 void loop() {
   read_sensors();
-  for (int i = 0; i < 3; i++) {
-    acc_cal[i] += acc[i];
-    gyro_cal[i] += gyr[i];
-  }
-  Serial.print(acc_cal[0] / sample_times, 7);
-  Serial.print(" ");
-  Serial.print(acc_cal[1] / sample_times, 7);
-  Serial.print(" ");
-  Serial.print(acc_cal[2] / sample_times, 7);
-  Serial.print(" ");
-  Serial.print(gyro_cal[0] / sample_times, 7);
-  Serial.print(" ");
-  Serial.print(gyro_cal[1] / sample_times, 7);
-  Serial.print(" ");
-  Serial.println(gyro_cal[2] / sample_times, 7);
-  sample_times++;
-  
+  delayMicroseconds(1000);
+  sendToPC(&mag[0], &mag[1], &mag[2]);
 }
