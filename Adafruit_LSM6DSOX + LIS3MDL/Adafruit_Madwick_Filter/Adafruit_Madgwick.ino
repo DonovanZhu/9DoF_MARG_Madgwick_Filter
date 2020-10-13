@@ -85,7 +85,6 @@ void compensate_sensor_errors() {
     gyr[2] -= GYRO_Z_OFFSET;
 }
 
-/* This file is part of the Razor AHRS Firmware */
 // Multiply 3x3 matrix with vector: out = a * b
 // out has to different from b (no in-place)!
 void Matrix_Vector_Multiply(const float a[3][3], const float b[3], float out[3])
