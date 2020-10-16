@@ -12,6 +12,7 @@ mag = LIS3MDL(board.I2C())
 magnetic = mag.magnetic
 magnetic_data = np.array(magnetic)
 
+# fit all data to an ellipsoid
 def ellipsoid_fit(x, y, z):
     D = np.array([ np.multiply(x, x), np.multiply(y, y), np.multiply(z, z), 2 * np.multiply(x, y), 2 * np.multiply(x, z), 2 * np.multiply(y, z), 2 * x, 2 * y, 2 * z ])
     m_1 = np.linalg.inv(np.dot(D, D.transpose()))
@@ -39,6 +40,8 @@ def ellipsoid_fit(x, y, z):
     return center, radii, evecs, v
 
 if __name__ == "__main__":
+    
+    # read data for 100 seconds
     t0 = time.perf_counter()
     while True:
         magnetic = mag.magnetic
@@ -47,7 +50,8 @@ if __name__ == "__main__":
         
         if (t1 > 100):
             break
-    np.savetxt('magnetometer.csv', magnetic_data, delimiter=',', fmt='%1.7f')
+    # np.savetxt('magnetometer.csv', magnetic_data, delimiter=',', fmt='%1.7f')
+    
     Mag_x = magnetic_data[:,0]
     Mag_y = magnetic_data[:,1]
     Mag_z = magnetic_data[:,2]
