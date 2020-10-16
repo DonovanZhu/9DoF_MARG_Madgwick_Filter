@@ -21,9 +21,6 @@ ACCEL_X_OFFSET = 0.01661877
 ACCEL_Y_OFFSET = -0.35245354
 ACCEL_Z_OFFSET = 10.07400186
     
-   
-
-
 magn_ellipsoid_center = np.array([-7.55084646, 24.20735906, -13.65776837])
 magn_ellipsoid_transform = np.array([[ 0.97206544, -0.04793918, 0.00480131],
  [-0.04793918,  0.91558391, -0.00202764],
@@ -56,9 +53,9 @@ def compensate_sensor_errors(acc, gyr, mag):
     
     return acc, gyr, mag
 
-
+# Madgwick filter
 def MadgwickQuaternionUpdate(acc, gyr, mag, deltat):
-
+    # Beta is regression step. When it increases, estimation algorithm responds faster but it will be more oscillation in outcomes.
     beta = 3
     q1, q2, q3, q4 = q[0], q[1], q[2], q[3]
     ax, ay, az = acc[0], acc[1], acc[2]
@@ -147,16 +144,14 @@ if __name__ == '__main__':
         time_now = time.clock()
         deltat = time_now - time_former;
         time_former = time_now;
-        if (0.01 - deltat > 0):
-            time.sleep(0.01 - deltat)
-        MadgwickQuaternionUpdate(acc, gyr, mag, 0.01)
+        MadgwickQuaternionUpdate(acc, gyr, mag, deltat)
         
         r = R.from_quat(q)
         eular = r.as_euler('zyx', degrees=True)
         
-        eular[2] -= 60; # 0.8 this used for compensating the angle between magenatic north and geographic north
+        eular[2] -= 60; # 60 this used for compensating the angle between magenatic north and geographic north, change this number at will
         if (eular[2] < -180):
             eular[2] += 360
 
-        print(eular, deltat)
+        print(eular)
 
