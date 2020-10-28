@@ -12,19 +12,19 @@ magnetic = LIS3MDL(board.I2C())
 GRAVITY = 9.802 # The gravity acceleration in New York City
 
 # Calibration outcomes
-
-GYRO_X_OFFSET =  0.01363404
-GYRO_Y_OFFSET =  0.00173217
-GYRO_Z_OFFSET = -0.00597996
    
-ACCEL_X_OFFSET = 0.01661877
-ACCEL_Y_OFFSET = -0.35245354
-ACCEL_Z_OFFSET = 10.07400186
-    
-magn_ellipsoid_center = np.array([-7.55084646, 24.20735906, -13.65776837])
-magn_ellipsoid_transform = np.array([[ 0.97206544, -0.04793918, 0.00480131],
- [-0.04793918,  0.91558391, -0.00202764],
- [0.00480131, -0.00202764, 0.95006348]])
+GYRO_X_OFFSET =  0.01465514
+GYRO_Y_OFFSET =  0.00873888
+GYRO_Z_OFFSET = -0.01110159
+      
+ACCEL_X_OFFSET = 0.11090005
+ACCEL_Y_OFFSET = -0.11273523
+ACCEL_Z_OFFSET = 9.89793281
+
+magn_ellipsoid_center = np.array([-0.71882994, -1.47720803, 2.13276772])
+magn_ellipsoid_transform = np.array([[ 0.99220953, -0.01757624, -0.03020328],
+ [-0.01757624,  0.81745802, -0.02563071],
+ [-0.03020328, -0.02563071,  0.8702554]])
 
 time_former = 0
 
@@ -56,7 +56,7 @@ def compensate_sensor_errors(acc, gyr, mag):
 # Madgwick filter
 def MadgwickQuaternionUpdate(acc, gyr, mag, deltat):
     # Beta is regression step. When it increases, estimation algorithm responds faster but it will be more oscillation in outcomes.
-    beta = 3
+    beta = 6
     q1, q2, q3, q4 = q[0], q[1], q[2], q[3]
     ax, ay, az = acc[0], acc[1], acc[2]
     gx, gy, gz = gyr[0], gyr[1], gyr[2]
@@ -133,6 +133,24 @@ def MadgwickQuaternionUpdate(acc, gyr, mag, deltat):
     q[2] = q3 * norm
     q[3] = q4 * norm
 
+def ToEulerAngles(qua):
+    sinr_cosp = 2 * (qua[0] * qua[1] + qua[2] * qua[3])
+    cosr_cosp = 1 - 2 * (qua[1] * qua[1] + qua[2] * qua[2])
+    roll_e = math.atan2(sinr_cosp, cosr_cosp)
+
+    sinp = 2 * (qua[0] * qua[2] - qua[3] * qua[1])
+    if (abs(sinp) >= 1):
+        pitch_e = math.copysign(M_PI / 2, sinp)
+    else:
+        pitch_e = math.asin(sinp)
+
+    siny_cosp = 2 * (qua[0] * qua[3] + qua[1] * qua[2])
+    cosy_cosp = 1 - 2 * (qua[2] * qua[2] + qua[3] * qua[3])
+    yaw_e = math.atan2(siny_cosp, cosy_cosp)
+
+    return np.array([roll_e, pitch_e, yaw_e])
+
+
 
 if __name__ == '__main__':
     time_former = time.clock()
@@ -146,12 +164,13 @@ if __name__ == '__main__':
         time_former = time_now;
         MadgwickQuaternionUpdate(acc, gyr, mag, deltat)
         
-        r = R.from_quat(q)
-        eular = r.as_euler('zyx', degrees=True)
         
-        eular[2] -= 60; # 60 this used for compensating the angle between magenatic north and geographic north, change this number at will
-        if (eular[2] < -180):
-            eular[2] += 360
+        euler = ToEulerAngles(q)
+        euler *= 180 / math.pi
+        euler[2] -= 60; # 60 this used for compensating the angle between magenatic north and geographic north, change this number at will
+        if (euler[2] < -180):
+            euler[2] += 360
 
-        print(eular)
+        print(euler)
+
 
