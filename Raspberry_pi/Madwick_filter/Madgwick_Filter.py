@@ -56,7 +56,7 @@ def compensate_sensor_errors(acc, gyr, mag):
 # Madgwick filter
 def MadgwickQuaternionUpdate(acc, gyr, mag, deltat):
     # Beta is regression step. When it increases, estimation algorithm responds faster but it will be more oscillation in outcomes.
-    beta = 6
+    beta = 8
     q1, q2, q3, q4 = q[0], q[1], q[2], q[3]
     ax, ay, az = acc[0], acc[1], acc[2]
     gx, gy, gz = gyr[0], gyr[1], gyr[2]
@@ -158,11 +158,11 @@ if __name__ == '__main__':
         acc ,gyr, mag = read_sensors()
 
         acc ,gyr, mag = compensate_sensor_errors(acc ,gyr, mag)
-
-        time_now = time.clock()
-        deltat = time_now - time_former;
-        time_former = time_now;
-        MadgwickQuaternionUpdate(acc, gyr, mag, deltat)
+        for _ in range(25):
+            time_now = time.clock()
+            deltat = time_now - time_former;
+            time_former = time_now;
+            MadgwickQuaternionUpdate(acc, gyr, mag, deltat)
         
         
         euler = ToEulerAngles(q)
@@ -172,5 +172,6 @@ if __name__ == '__main__':
             euler[2] += 360
 
         print(euler)
+
 
 
