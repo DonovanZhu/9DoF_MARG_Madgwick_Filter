@@ -6,7 +6,7 @@ This project implements attitude estimation by using [Madgwick filter](https://x
 MPU9250 can also be replaced by [MPU9255](https://www.amazon.com/UCTRONICS-MPU-9255-Compass-Accelerometer-Gyroscope/dp/B01DIGRR8U/ref=sr_1_3?dchild=1&keywords=MPU9255&qid=1597109290&sr=8-3) since they use same library in Arduino. A [Teensy4.0](https://www.pjrc.com/teensy-4-0/), which is an Arduino like microcontroller, is used to receive and process the data from MARG, and sent results of attitude estimation as Euler angle to PC.
 
 **To view the performance, please click the following image.**
-
+or [Click here if you cannot use Youtube](https://www.bilibili.com/video/BV1Tp4y1p7Bn/)
 [![Alt text](https://img.youtube.com/vi/iOwcov_5z3c/0.jpg)](https://www.youtube.com/watch?v=iOwcov_5z3c)
 
 ## Hardware Description
